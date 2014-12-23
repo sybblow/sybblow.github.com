@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zhs"
+>
+<head>
+    <title>Hydra的一个BUG - Sybblow's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/hydrade-yi-ge-bug.html">
+
+        <meta name="author" content="Sybblow" />
+        <meta name="description" content="简介 hydra是一个非常有名的网络暴力破解（brute force attack）工具，被评为Kali（原BackTrack）工具箱的Top 10工具之一。 它的主要特点有： 支持网络协议种类齐全。从系统登录协议、一般的网络应用层协议到Web表单都十分齐全； 内建字典生成引擎。内建一个简单的口令字典生成引擎，能够攻击一般的弱口令； 支持读入字典文件。这个必须要有； 支持中断和恢复。能够停止之后，再重启恢复之前的任务，不怕出故障心血白费了； 多进程并发。同时发起多个连接，虽然非阻塞式IO才是最好的并发方式，ab之类的压力测试工具轻松能够创建上万个连接，但是Linux创建进程的成本很低，再考虑到服务器承受能力一般不会创建太多进程，几十上百足矣，并没有性能上的不足。 它也有硬伤： 不支持使用多http代理和http代理的轮换。原因可能在于它并不是一个特别专业的http表单破解工具； 所有的协议都通过自己实现的套接字连接模块来实现，而自身对连接异常没有准确的处理，导致在防护者配置了防火墙或者IDS的情况下，Hydra会返回错误的结果。 总的来说，作为一款开源工具，Hydra是相当不错的暴力破解专用工具。 使用配置方法 Hydra在http表单暴力破解的典型使用方法如下： hydra -l admin -P PASSWORDS.TXT -t ..." />
+
+        <meta property="og:site_name" content="Sybblow's Blog" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Hydra的一个BUG"/>
+        <meta property="og:url" content="/hydrade-yi-ge-bug.html"/>
+        <meta property="og:description" content="简介 hydra是一个非常有名的网络暴力破解（brute force attack）工具，被评为Kali（原BackTrack）工具箱的Top 10工具之一。 它的主要特点有： 支持网络协议种类齐全。从系统登录协议、一般的网络应用层协议到Web表单都十分齐全； 内建字典生成引擎。内建一个简单的口令字典生成引擎，能够攻击一般的弱口令； 支持读入字典文件。这个必须要有； 支持中断和恢复。能够停止之后，再重启恢复之前的任务，不怕出故障心血白费了； 多进程并发。同时发起多个连接，虽然非阻塞式IO才是最好的并发方式，ab之类的压力测试工具轻松能够创建上万个连接，但是Linux创建进程的成本很低，再考虑到服务器承受能力一般不会创建太多进程，几十上百足矣，并没有性能上的不足。 它也有硬伤： 不支持使用多http代理和http代理的轮换。原因可能在于它并不是一个特别专业的http表单破解工具； 所有的协议都通过自己实现的套接字连接模块来实现，而自身对连接异常没有准确的处理，导致在防护者配置了防火墙或者IDS的情况下，Hydra会返回错误的结果。 总的来说，作为一款开源工具，Hydra是相当不错的暴力破解专用工具。 使用配置方法 Hydra在http表单暴力破解的典型使用方法如下： hydra -l admin -P PASSWORDS.TXT -t ..."/>
+        <meta property="article:published_time" content="2013-08-17" />
+            <meta property="article:section" content="misc" />
+            <meta property="article:author" content="Sybblow" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.sandstone.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Sybblow's Blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/hydrade-yi-ge-bug.html"
+                       rel="bookmark"
+                       title="Permalink to Hydra的一个BUG">
+                        Hydra的一个BUG
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2013-08-17T15:34:00+08:00"> 六 17 八月 2013</time>
+    </span>
+
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <h2>简介</h2>
+<p>hydra是一个非常有名的网络暴力破解（brute force attack）工具，被评为Kali（原BackTrack）工具箱的Top 10工具之一。
+它的主要特点有：</p>
+<ul>
+<li>支持网络协议种类齐全。从系统登录协议、一般的网络应用层协议到Web表单都十分齐全；</li>
+<li>内建字典生成引擎。内建一个简单的口令字典生成引擎，能够攻击一般的弱口令；</li>
+<li>支持读入字典文件。这个必须要有；</li>
+<li>支持中断和恢复。能够停止之后，再重启恢复之前的任务，不怕出故障心血白费了；</li>
+<li>多进程并发。同时发起多个连接，虽然非阻塞式IO才是最好的并发方式，ab之类的压力测试工具轻松能够创建上万个连接，但是Linux创建进程的成本很低，再考虑到服务器承受能力一般不会创建太多进程，几十上百足矣，并没有性能上的不足。</li>
+</ul>
+<p>它也有硬伤：</p>
+<ul>
+<li>不支持使用多http代理和http代理的轮换。原因可能在于它并不是一个特别专业的http表单破解工具；</li>
+<li>所有的协议都通过自己实现的套接字连接模块来实现，而自身对连接异常没有准确的处理，导致在防护者配置了防火墙或者IDS的情况下，Hydra会返回错误的结果。</li>
+</ul>
+<p>总的来说，作为一款开源工具，Hydra是相当不错的暴力破解专用工具。</p>
+<h2>使用配置方法</h2>
+<p>Hydra在http表单暴力破解的典型使用方法如下：</p>
+<div class="highlight"><pre>hydra -l admin -P PASSWORDS.TXT -t 60 -f HOST http-post-form PATH:POSTDATA:FAILURE_SIGNATURE
+</pre></div>
+
+
+<p>以上选项的意义如下所示：</p>
+<ul>
+<li><code>-l admin</code> 指定攻击目标的用户ID为admin</li>
+<li><code>-P PASSWORD.TXT</code> 指定暴力破解所使用的字典文件</li>
+<li><code>-t 60</code> 指定并发任务数为60</li>
+<li><code>-f</code> 指定当第一个成功结果出现时就立即返回</li>
+<li><code>HOST</code> 的地方填写主机地址（域名或者IP地址）</li>
+<li><code>http-post-form</code> 指定攻击方法为HTTP表单攻击</li>
+<li><code>PATH:POSTDATA:FAILURE_SIGNATURE</code> 这块由三个字段组成。第一个字段 <code>PATH</code> 指定http请求的远程路径，第二个字段 <code>POSTDATA</code> 指定http请求的提交数据，其中用元单词表示用户ID和口令出现的位置，第三个字段 <code>FAILURE_SIGNATURE</code> 指定输入错误口令时的响应数据标识</li>
+</ul>
+<h2>BUG介绍</h2>
+<h3>表现</h3>
+<p>在使用过程中，某网站返回了页面重定向，而Hydra将重定向页面丢弃了一个尾字母，定向到了错误的页面。</p>
+<h3>成因分析</h3>
+<p>Hydra提供了debug选项，在启动参数中加入 <code>-d</code> 就能够启用调试模式，将代码的具体执行信息打印出来。</p>
+<p>在hydra-http-form.c里找找处理重定向的代码：</p>
+<div class="highlight"><pre>    <span class="k">if</span> <span class="p">(</span><span class="n">hydra_strcasestr</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&quot;Location: &quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kt">char</span> <span class="o">*</span><span class="n">startloc</span><span class="p">,</span> <span class="o">*</span><span class="n">endloc</span><span class="p">;</span>
+      <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">2048</span><span class="p">];</span>
+
+      <span class="n">startloc</span> <span class="o">=</span> <span class="n">hydra_strcasestr</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&quot;Location: &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">strlen</span><span class="p">(</span><span class="s">&quot;Location: &quot;</span><span class="p">);</span>
+      <span class="n">strncpy</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">startloc</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+      <span class="n">str</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">endloc</span> <span class="o">=</span> <span class="n">strchr</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">endloc</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="o">*</span><span class="n">endloc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">endloc</span> <span class="o">=</span> <span class="n">strchr</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="sc">&#39;\r&#39;</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">endloc</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="o">*</span><span class="n">endloc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">strcpy</span><span class="p">(</span><span class="n">redirected_url_buff</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>看到就无语了，用最简单的字符数组处理字符串，可能Hydra为了可移植没有使用glibc或者glib里面的高级字符串结构，然后字符串数组很容易就出现长度不够的问题， <code>malloc</code> 堆分配还好点，不过看了几处 <code>malloc</code> 的代码，健壮性也很差，明显有堆溢出漏洞。</p>
+<p>不过这还不是出问题的地方，从debug模式下返回的信息可以定位到以下的代码：</p>
+<div class="highlight"><pre>    <span class="k">if</span> <span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">strcpy</span><span class="p">(</span><span class="n">str3</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">strncpy</span><span class="p">(</span><span class="n">str3</span><span class="p">,</span> <span class="n">str</span> <span class="o">+</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str2</span><span class="p">),</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+      <span class="n">str3</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>看样子这段代码是想把 <code>str</code> 切成 <code>str2</code> 和 <code>str3</code> 两部分，那这个 <code>-1</code> 是怎么回事？ <code>strlen</code> 返回的是除去 <code>'\0'</code> 的真实字符串长度，strncpy实际的拷贝长度包括 <code>'\0'</code> 字符总共不超过第三个字符指定的长度，那这个减一就莫名其妙了，应该是加1才是。</p>
+<p>而下面的那句代码 <code>str3[strlen(str) - strlen(str2) - 1] = 0;</code> 就是祸根，两个长度都是除去 <code>'\0'</code> 的真实字符串长度，这样岂不是把字符串的最后一位给置零了。</p>
+<h3>修复</h3>
+<p>最简单的修复办法是把 <code>strncpy</code> 改成 <code>strcpy</code> ，不指定拷贝长度，而后面的那段画蛇添足的添加 <code>'\0'</code> 的代码也可以扔了。</p>
+<p>当然原来作者是考虑一定的健壮性，所以最好的改法是 <code>strncpy</code> 的长度改为加一，而后面代码的 <code>- 1</code> 删去。如下面所示：</p>
+<div class="highlight"><pre>    <span class="k">if</span> <span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">strcpy</span><span class="p">(</span><span class="n">str3</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">strncpy</span><span class="p">(</span><span class="n">str3</span><span class="p">,</span> <span class="n">str</span> <span class="o">+</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str2</span><span class="p">),</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+      <span class="n">str3</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="o">-</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str2</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<h2>结论</h2>
+<p>Hydra不是一个专门的http表单暴力破解工具，尽管它有非常不错的暴力破解框架：字典支持、多进程、断点恢复。它的Web请求处理代码不够标准和健壮，这点明显比不上标准的Web请求处理库，如python的urllib2等等。</p>
+<p>有意思的是，Hydra似乎有不错的模块化，最好能对http form模块进行重写。</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://twitter.com/SiliangCao"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+            <li class="list-group-item"><a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://vim.spf13.com/" target="_blank">
+                spf13-vim - The Ultimate Vim Distribution
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://ohmyz.sh/" target="_blank">
+                Oh My Zsh
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.sourcetreeapp.com/" target="_blank">
+                SourceTree Git Client
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.rust-lang.org/" target="_blank">
+                The Rust Programming Language
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2013 Sybblow
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>
