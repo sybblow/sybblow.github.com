@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zhs"
+>
+<head>
+    <title>Fedora 21试用笔记 - Sybblow's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/fedora-21shi-yong-bi-ji.html">
+
+        <meta name="author" content="Sybblow" />
+        <meta name="description" content="F21是之前个人感觉非常好的一个发行版，试用了一下，果然非常不错。 开发环境方面： 产品形态变更：RH看到了互联网的发展和Ubuntu的成功，终于意识到一个依靠社区支持、更新及时的发行版是多么的重要。Fedora Next的思路已经让人感觉到这已经是个不一样的Fedora，它是一个有support的产品，却并非RHEL这种面向传统IT的系统。它的包管理策略是：只维护一个稳定的核心。毕竟，Linux一直是一个管理员友好的系统，而不是像FreeBSD那样的程序员友好的系统，各种语言和开发框架的包管理和代码管理都有更好的专门工具，不走系统的软件包管理，对发行版的需求，就是核心稳定可用和不错的性能，而不需要在意软件仓库的软件包是否丰富和及时。dnf挑战apt、RPM Fusion挑战universe源、Fedora Copr挑战PPA都已经初见眉目，Ubuntu的优势越来越少。 面向最终用户的工作站：曾经有牛人推荐过Debian的Sid，但是Sid更像是一个面向开发者的开发测试运行环境，保证了一致的开发中代码的运行环境，却没有方便（Linus就曾经抱怨过Debian难装）稳定的工作站，对本来就不是为Debian平台提交软件包的开发者来说更这种开发测试运行环境更是没有必要。软件包更新迭代策略非常激进，导致更新时经常需要通知重要的变更信息。而Fedora的更新频道则是面向最终用户式的，Testing频道是不打开的，而是通过正常的更新频道向用户推送。 桌面方面： 可用的wayland桌面。wayland ..." />
+
+        <meta property="og:site_name" content="Sybblow's Blog" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Fedora 21试用笔记"/>
+        <meta property="og:url" content="/fedora-21shi-yong-bi-ji.html"/>
+        <meta property="og:description" content="F21是之前个人感觉非常好的一个发行版，试用了一下，果然非常不错。 开发环境方面： 产品形态变更：RH看到了互联网的发展和Ubuntu的成功，终于意识到一个依靠社区支持、更新及时的发行版是多么的重要。Fedora Next的思路已经让人感觉到这已经是个不一样的Fedora，它是一个有support的产品，却并非RHEL这种面向传统IT的系统。它的包管理策略是：只维护一个稳定的核心。毕竟，Linux一直是一个管理员友好的系统，而不是像FreeBSD那样的程序员友好的系统，各种语言和开发框架的包管理和代码管理都有更好的专门工具，不走系统的软件包管理，对发行版的需求，就是核心稳定可用和不错的性能，而不需要在意软件仓库的软件包是否丰富和及时。dnf挑战apt、RPM Fusion挑战universe源、Fedora Copr挑战PPA都已经初见眉目，Ubuntu的优势越来越少。 面向最终用户的工作站：曾经有牛人推荐过Debian的Sid，但是Sid更像是一个面向开发者的开发测试运行环境，保证了一致的开发中代码的运行环境，却没有方便（Linus就曾经抱怨过Debian难装）稳定的工作站，对本来就不是为Debian平台提交软件包的开发者来说更这种开发测试运行环境更是没有必要。软件包更新迭代策略非常激进，导致更新时经常需要通知重要的变更信息。而Fedora的更新频道则是面向最终用户式的，Testing频道是不打开的，而是通过正常的更新频道向用户推送。 桌面方面： 可用的wayland桌面。wayland ..."/>
+        <meta property="article:published_time" content="2015-02-26" />
+            <meta property="article:section" content="linux" />
+            <meta property="article:author" content="Sybblow" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.superhero.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Sybblow's Blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li >
+                            <a href="/category/security.html">Security</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/fedora-21shi-yong-bi-ji.html"
+                       rel="bookmark"
+                       title="Permalink to Fedora 21试用笔记">
+                        Fedora 21试用笔记
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-02-26T22:53:00+08:00"> 四 26 二月 2015</time>
+    </span>
+
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>F21是之前个人感觉非常好的一个发行版，试用了一下，果然非常不错。</p>
+<p>开发环境方面：</p>
+<ul>
+<li><strong>产品形态变更</strong>：RH看到了互联网的发展和Ubuntu的成功，终于意识到一个依靠社区支持、更新及时的发行版是多么的重要。Fedora Next的思路已经让人感觉到这已经是个不一样的Fedora，它是一个有support的产品，却并非RHEL这种面向传统IT的系统。它的包管理策略是：只维护一个稳定的核心。毕竟，Linux一直是一个管理员友好的系统，而不是像FreeBSD那样的程序员友好的系统，各种语言和开发框架的包管理和代码管理都有更好的专门工具，不走系统的软件包管理，对发行版的需求，就是<strong>核心稳定可用</strong>和<strong>不错的性能</strong>，而不需要在意软件仓库的软件包是否丰富和及时。dnf挑战apt、RPM Fusion挑战universe源、Fedora Copr挑战PPA都已经初见眉目，Ubuntu的优势越来越少。</li>
+<li><strong>面向最终用户的工作站</strong>：曾经有牛人推荐过Debian的Sid，但是Sid更像是一个面向开发者的<strong>开发测试运行环境</strong>，保证了一致的开发中代码的运行环境，却没有方便（Linus就曾经抱怨过Debian难装）稳定的工作站，对本来就不是为Debian平台提交软件包的开发者来说更这种<strong>开发测试运行环境</strong>更是没有必要。软件包更新迭代策略非常激进，导致更新时经常需要通知重要的变更信息。而Fedora的更新频道则是面向最终用户式的，Testing频道是不打开的，而是通过正常的更新频道向用户推送。</li>
+</ul>
+<p>桌面方面：</p>
+<ul>
+<li><strong>可用的wayland桌面</strong>。<em>wayland</em>是新的显示系统，终于能让桌面特效不挑硬件。我是一个穷码农，也不是一个计算机发烧友，对硬件的投资非常吝啬——键盘如战马，值得好好投入和保养；CPU、GPU则是昨日黄花的易耗品。我绝不会为拙劣的桌面技术投入过多的硬件预算，大不了用传统的mate桌面。</li>
+<li><strong>舒服的workspace</strong>。<em>Gnome Shell</em>的设计誉毁各半。我认为它至少把workspace的思路做到了家。Windows基于窗口的管理设计是最简单合理的，而<em>workspace</em>是窗口机制上再加一层分组机制。现在的这种动态增加和减少的<em>workspace</em>才让人感觉到舒服合理。现在的启动器虽说是针对触摸屏设计的，但对于习惯gnome do、通过搜索启动应用的用户应该也会觉得很亲切。</li>
+</ul>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://twitter.com/SiliangCao"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+            <li class="list-group-item"><a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://vim.spf13.com/" target="_blank">
+                spf13-vim - The Ultimate Vim Distribution
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://ohmyz.sh/" target="_blank">
+                Oh My Zsh
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.sourcetreeapp.com/" target="_blank">
+                SourceTree Git Client
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.rust-lang.org/" target="_blank">
+                The Rust Programming Language
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 Sybblow
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

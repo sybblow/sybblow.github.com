@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zhs"
+>
+<head>
+    <title>linux - Sybblow's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+    <meta name="author" content="Sybblow" />
+    <meta name="keywords" content="linux" />
+
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="Sybblow's Blog" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Sybblow's Blog"/>
+        <meta property="og:url" content=""/>
+        <meta property="og:description" content="Sybblow's Blog"/>
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.superhero.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Sybblow's Blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li >
+                            <a href="/category/security.html">Security</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+            <article>
+                <h2><a href="/fedora-21shi-yong-bi-ji.html">Fedora 21试用笔记</a></h2>
+                <div class="summary"><p>F21是之前个人感觉非常好的一个发行版，试用了一下，果然非常不错。</p>
+<p>开发环境方面：</p>
+<ul>
+<li><strong>产品形态变更</strong>：RH看到了互联网的发展和Ubuntu的成功，终于意识到一个依靠社区支持、更新及时的发行版是多么的重要。Fedora Next的思路已经让人感觉到这已经是个不一样的Fedora，它是一个有support的产品，却并非RHEL这种面向传统IT的系统。它的包管理策略是：只维护一个稳定的核心。毕竟，Linux一直是一个管理员友好的系统，而不是像FreeBSD那样的程序员友好的系统，各种语言和开发框架的包管理和代码管理都有更好的专门工具，不走系统的软件包管理，对发行版的需求，就是<strong>核心稳定可用</strong>和<strong>不错的性能</strong>，而不需要在意软件仓库的软件包是否丰富和及时。dnf挑战apt、RPM Fusion挑战universe源、Fedora Copr挑战PPA都已经初见眉目，Ubuntu的优势越来越少。</li>
+<li><strong>面向最终用户的工作站</strong>：曾经有牛人推荐过Debian的Sid，但是Sid更像是一个面向开发者的<strong>开发测试运行环境</strong>，保证了一致的开发中代码的运行环境，却没有方便（Linus就曾经抱怨过Debian难装）稳定的工作站，对本来就不是为Debian平台提交软件包的开发者来说更这种<strong>开发测试运行环境</strong>更是没有必要。软件包更新迭代策略非常激进，导致更新时经常需要通知重要的变更信息。而Fedora的更新频道则是面向最终用户式的，Testing频道是不打开的，而是通过正常的更新频道向用户推送。</li>
+</ul>
+<p>桌面方面：</p>
+<ul>
+<li><strong>可用的wayland桌面</strong>。<em>wayland ...</em></li></ul>
+                    <a class="btn btn-default btn-xs" href="/fedora-21shi-yong-bi-ji.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://twitter.com/SiliangCao"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+            <li class="list-group-item"><a href="/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                </ul>
+            </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://vim.spf13.com/" target="_blank">
+                spf13-vim - The Ultimate Vim Distribution
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://ohmyz.sh/" target="_blank">
+                Oh My Zsh
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.sourcetreeapp.com/" target="_blank">
+                SourceTree Git Client
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://www.rust-lang.org/" target="_blank">
+                The Rust Programming Language
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 Sybblow
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>
