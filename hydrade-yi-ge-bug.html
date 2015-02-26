@@ -21,7 +21,7 @@
         <meta property="og:url" content="/hydrade-yi-ge-bug.html"/>
         <meta property="og:description" content="简介 hydra是一个非常有名的网络暴力破解（brute force attack）工具，被评为Kali（原BackTrack）工具箱的Top 10工具之一。 它的主要特点有： 支持网络协议种类齐全。从系统登录协议、一般的网络应用层协议到Web表单都十分齐全； 内建字典生成引擎。内建一个简单的口令字典生成引擎，能够攻击一般的弱口令； 支持读入字典文件。这个必须要有； 支持中断和恢复。能够停止之后，再重启恢复之前的任务，不怕出故障心血白费了； 多进程并发。同时发起多个连接，虽然非阻塞式IO才是最好的并发方式，ab之类的压力测试工具轻松能够创建上万个连接，但是Linux创建进程的成本很低，再考虑到服务器承受能力一般不会创建太多进程，几十上百足矣，并没有性能上的不足。 它也有硬伤： 不支持使用多http代理和http代理的轮换。原因可能在于它并不是一个特别专业的http表单破解工具； 所有的协议都通过自己实现的套接字连接模块来实现，而自身对连接异常没有准确的处理，导致在防护者配置了防火墙或者IDS的情况下，Hydra会返回错误的结果。 总的来说，作为一款开源工具，Hydra是相当不错的暴力破解专用工具。 使用配置方法 Hydra在http表单暴力破解的典型使用方法如下： hydra -l admin -P PASSWORDS.TXT -t ..."/>
         <meta property="article:published_time" content="2013-08-17" />
-            <meta property="article:section" content="misc" />
+            <meta property="article:section" content="security" />
             <meta property="article:author" content="Sybblow" />
 
 
@@ -50,8 +50,11 @@ Sybblow's Blog            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
+                        <li >
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
                         <li class="active">
-                            <a href="/category/misc.html">Misc</a>
+                            <a href="/category/security.html">Security</a>
                         </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -233,7 +236,7 @@ Sybblow's Blog            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2013 Sybblow
+         <div class="col-xs-10">&copy; 2015 Sybblow
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by/4.0/80x15.png" /></a>
